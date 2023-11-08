@@ -84,7 +84,10 @@ jobs:
 
       - name: delete .aws/credentials if it exist
         run: |
-          rm -r .aws &>/dev/null
+          if [[ -d .aws ]]
+          then
+            rm -r .aws
+          fi
 
       - name: create new .aws/credentials
         run: |
