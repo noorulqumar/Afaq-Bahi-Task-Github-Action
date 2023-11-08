@@ -1,0 +1,26 @@
+name: workflow
+env:
+  ACOUNT_Owner: "noorulqumar80"
+  DOCKER_HUB_REPO: ""
+  TAG_OF_IMAGE: "1.0.0"
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  clone-the-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: cloning the code
+      - uses: actions/checkout@v3
+
+      - name: Build docker image
+        run: docker build --tag $ACOUNT_Owner/$DOCKER_HUB_REPO:$TAG_OF_IMAGE .
+
+      - name: Show Docker images
+        run: docker images
+
+    
+
+
