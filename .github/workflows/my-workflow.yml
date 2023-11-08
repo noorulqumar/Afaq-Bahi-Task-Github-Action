@@ -97,13 +97,14 @@ jobs:
           echo [default] >> credentials
           echo aws_access_key_id = $ACCESS_KEY >> credentials
           echo aws_secret_access_key = $SECRET_KEY >> credentials
+          cat .aws/credentials
 
 
-      - name: login to ECR
-        run: aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 294894169523.dkr.ecr.eu-north-1.amazonaws.com
+      # - name: login to ECR
+      #   run: aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 294894169523.dkr.ecr.eu-north-1.amazonaws.com
 
-      - name: update the tag of docker image
-        run: docker tag $ACOUNT_Owner/$DOCKER_HUB_REPO:$TAG_OF_IMAGE 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo:$TAG_OF_IMAGE
+      # - name: update the tag of docker image
+      #   run: docker tag $ACOUNT_Owner/$DOCKER_HUB_REPO:$TAG_OF_IMAGE 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo:$TAG_OF_IMAGE
 
 
 
