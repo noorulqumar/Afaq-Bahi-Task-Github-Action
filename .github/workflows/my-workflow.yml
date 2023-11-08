@@ -86,7 +86,7 @@ jobs:
         run: |
           if [[ -d .aws ]]
           then
-            rm -rf .aws
+            sudo rm -rf .aws
           fi
 
       - name: create new .aws/credentials
