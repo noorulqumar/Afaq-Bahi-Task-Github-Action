@@ -81,24 +81,29 @@ jobs:
               echo "awscli is installed"
             fi
           fi
-
-      - name: delete .aws/credentials if it exist
+      - name: configure AWS credentials
         run: |
-          if [[ -d .aws ]]
-          then
-            sudo rm -rf .aws
-          fi
+          aws configure set aws_access_key_id $ACCESS_KEY
+          aws configure set aws_secret_access_key $SECRET_KEY
 
-      - name: create new .aws/credentials
-        run: |
-          cd ~
-          pwd
-          mkdir .aws
-          cd .aws/
-          touch credentials
-          echo [default] >> credentials
-          echo aws_access_key_id = $ACCESS_KEY >> credentials
-          echo aws_secret_access_key = $SECRET_KEY >> credentials
+
+      # - name: delete .aws/credentials if it exist
+      #   run: |
+      #     if [[ -d .aws ]]
+      #     then
+      #       sudo rm -rf .aws
+      #     fi
+
+      # - name: create new .aws/credentials
+      #   run: |
+      #     cd ~
+      #     pwd
+      #     mkdir .aws
+      #     cd .aws/
+      #     touch credentials
+      #     echo [default] >> credentials
+      #     echo aws_access_key_id = $ACCESS_KEY >> credentials
+      #     echo aws_secret_access_key = $SECRET_KEY >> credentials
 
 
       # - name: login to ECR
