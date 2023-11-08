@@ -92,7 +92,7 @@ jobs:
       - name: create new .aws/credentials
         run: |
           mkdir .aws
-          cd .aws
+          cd .aws/
           touch credentials
           echo [default] >> credentials
           echo aws_access_key_id = $ACCESS_KEY >> credentials
