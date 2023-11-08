@@ -47,7 +47,8 @@ jobs:
         run: docker images
 
       - name : print DOCKER token
-        run: echo "${{ secret.DOCKER_HUB_ACCESS_TOKEN }}"
+        run: echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+
 
 
     
