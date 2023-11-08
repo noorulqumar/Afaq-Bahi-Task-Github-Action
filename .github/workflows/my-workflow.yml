@@ -1,7 +1,7 @@
 name: workflow
 env:
   ACOUNT_Owner: "noorulqumar80"
-  DOCKER_HUB_REPO: "26"
+  DOCKER_HUB_REPO: "my-image"
   TAG_OF_IMAGE: "1.0.0"
 on:
   push:
