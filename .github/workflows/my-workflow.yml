@@ -91,6 +91,7 @@ jobs:
 
       - name: create new .aws/credentials
         run: |
+          pwd
           mkdir .aws
           cd .aws/
           touch credentials
