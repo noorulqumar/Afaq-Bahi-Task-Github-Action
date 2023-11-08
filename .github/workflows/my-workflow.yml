@@ -56,7 +56,7 @@ jobs:
     needs: [Build-docker-image]
     steps:
       - name: login to docker hub
-        run: 'echo dckr_pat_wBQJTGPISkV8rfqG_BbmRjDJANQ | docker login -u noorulqumar80 --password-stdin'  
+        run: 'echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u $ACOUNT_Owner --password-stdin'  
 
       - name: push image
         run: docker push $ACOUNT_Owner/$DOCKER_HUB_REPO:$TAG_OF_IMAGE
