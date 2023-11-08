@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
   Check-Setup-docker:
     runs-on: self-hosted
-    needs: [Setup-docker]
+    needs: [Checkout]
     steps:
       - name: Check if Docker is installed
         run: |
