@@ -7,13 +7,15 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
 
 jobs:
   clone-the-code:
     runs-on: ubuntu-latest
     steps:
-      - name: cloning the code
-      - uses: actions/checkout@v3
+      - name: abc
+        uses: actions/checkout@v4
 
       - name: Build docker image
         run: docker build --tag $ACOUNT_Owner/$DOCKER_HUB_REPO:$TAG_OF_IMAGE .
