@@ -11,7 +11,7 @@ on:
 
 
 jobs:
-  Setup-docker:
+  Checkout:
     runs-on: self-hosted
     steps:
 
@@ -50,6 +50,17 @@ jobs:
 
       - name : print DOCKER token
         run: echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+
+  Push_image_to_docker_Hub:
+    runs-on: self-hosted
+    needs: [Build-docker-image]
+    steps:
+      - name: login to docker hub
+        run: 'echo dckr_pat_wBQJTGPISkV8rfqG_BbmRjDJANQ | docker login -u noorulqumar80 --password-stdin'  
+
+      - name: push image
+        run: docker push $ACOUNT_Owner/$DOCKER_HUB_REPO:$TAG_OF_IMAGE
+
 
 
 
