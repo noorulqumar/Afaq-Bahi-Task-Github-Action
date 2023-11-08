@@ -1,7 +1,7 @@
 name: workflow
 env:
   ACOUNT_Owner: "noorulqumar80"
-  DOCKER_HUB_REPO: ""
+  DOCKER_HUB_REPO: "26"
   TAG_OF_IMAGE: "1.0.0"
 on:
   push:
@@ -14,6 +14,10 @@ jobs:
   Setup-docker:
     runs-on: ubuntu-latest
     steps:
+
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
 
       - name: Check if Docker is installed
         run: |
@@ -35,18 +39,13 @@ jobs:
 
       - name: Check Docker version
         run: docker --version
-  clone-the-code:
-    runs-on: ubuntu-latest
-    needs: [Setup-docker]
-    steps:
-      - name: abc
-        uses: actions/checkout@v4
 
-      # - name: Build docker image
-      #   run: docker build --tag $ACOUNT_Owner/$DOCKER_HUB_REPO:$TAG_OF_IMAGE .
+      - name: Build docker image
+        run: docker build --tag $ACOUNT_Owner/$DOCKER_HUB_REPO:$TAG_OF_IMAGE .
 
-      # - name: Show Docker images
-      #   run: docker images
+      - name: Show Docker images
+        run: docker images
+
 
     
 
