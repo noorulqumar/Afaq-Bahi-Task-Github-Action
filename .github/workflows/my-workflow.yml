@@ -95,8 +95,8 @@ jobs:
           cd .aws/
           touch credentials
           echo [default] >> credentials
-          echo aws_access_key_id = $ACCESS_KEY >> credentials
-          echo aws_secret_access_key = $SECRET_KEY >> credentials
+          echo aws_access_key_id = AKIA5P6KGXGUFORL4EHX >> credentials
+          echo aws_secret_access_key = 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 >> credentials
       #    cat .aws/credentials
 
 
