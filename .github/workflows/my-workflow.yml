@@ -37,7 +37,7 @@ jobs:
         run: docker --version
   clone-the-code:
     runs-on: ubuntu-latest
-    needs: [docker]
+    needs: [Setup-docker]
     steps:
       - name: abc
         uses: actions/checkout@v4
