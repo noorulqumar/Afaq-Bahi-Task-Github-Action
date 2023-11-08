@@ -62,6 +62,17 @@ jobs:
         run: docker push $ACOUNT_Owner/$DOCKER_HUB_REPO:$TAG_OF_IMAGE
 
 
+  Push_image_to_ECR:
+    runs-on: self-hosted
+    needs: [Build-docker-image]
+    steps:
+      - name: login to ECR
+        run: aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 294894169523.dkr.ecr.eu-north-1.amazonaws.com
+
+      - name: update the tag of docker image
+        run: docker tag $ACOUNT_Owner/$DOCKER_HUB_REPO:$TAG_OF_IMAGE 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo:$TAG_OF_IMAGE
+
+
 
 
     
