@@ -3,8 +3,8 @@ env:
   ACOUNT_Owner: "noorulqumar80"
   DOCKER_HUB_REPO: "my-image"
   TAG_OF_IMAGE: "1.0.0"
-  ACCESS_KEY: ${{ secrets.ACCESS_KEY}}
-  SECRET_KEY: ${{ secrets.SECRET_KEY}}
+  ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+  SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
 on:
   push:
