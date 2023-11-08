@@ -67,7 +67,7 @@ jobs:
 
   Push_image_to_ECR:
     runs-on: self-hosted
-    needs: [Build-docker-image]
+    # needs: [Build-docker-image]
     steps:
       - name: check awscli installed or not
         run: |
