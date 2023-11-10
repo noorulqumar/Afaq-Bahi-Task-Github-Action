@@ -67,7 +67,7 @@ jobs:
 
   Push_image_to_ECR:
     runs-on: self-hosted
-    # needs: [Build-docker-image]
+    needs: [Build-docker-image]
     steps:
       - name: check awscli installed or not
         run: |
@@ -84,6 +84,8 @@ jobs:
 
       - name: delete .aws/credentials if it exist
         run: |
+          pwd
+          cd ~
           if [[ -d .aws ]]
           then
             sudo rm -rf .aws
