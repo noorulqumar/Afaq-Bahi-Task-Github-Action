@@ -110,6 +110,7 @@ jobs:
 
   Deploy_web_on_EC2:
     runs-on: self-hosted
+    needs: [Push_image_to_ECR]
     steps:
       - name: SSH to the Server
         run: |
