@@ -46,7 +46,7 @@ jobs:
     needs: [Check-Setup-docker]
     steps:
       - name: Build docker image
-        run: docker build --tag $ACOUNT_Owner/$DOCKER_HUB_REPO:$TAG_OF_IMAGE .
+        run: docker build --tag $ACOUNT_Owner/$DOCKER_HUB_REPO:$GITHUB_RUN_NUMBER .
 
       - name: Show Docker images
         run: docker images
@@ -62,7 +62,7 @@ jobs:
         run: 'echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u $ACOUNT_Owner --password-stdin'  
 
       - name: push image
-        run: docker push $ACOUNT_Owner/$DOCKER_HUB_REPO:$TAG_OF_IMAGE
+        run: docker push $ACOUNT_Owner/$DOCKER_HUB_REPO:$GITHUB_RUN_NUMBER
 
 
   Push_image_to_ECR:
@@ -102,7 +102,7 @@ jobs:
         run: aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 294894169523.dkr.ecr.eu-north-1.amazonaws.com
 
       - name: update the tag of docker image
-        run: docker tag $ACOUNT_Owner/$DOCKER_HUB_REPO:$TAG_OF_IMAGE 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:$TAG_OF_IMAGE
+        run: docker tag $ACOUNT_Owner/$DOCKER_HUB_REPO:$GITHUB_RUN_NUMBER 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:$GITHUB_RUN_NUMBER
 
 
 
