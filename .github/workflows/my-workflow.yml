@@ -3,8 +3,9 @@ env:
   ACOUNT_Owner: "noorulqumar80"
   DOCKER_HUB_REPO: "my-image"
   TAG_OF_IMAGE: $GITHUB_RUN_NUMBER
-  ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
-  SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  ACCESS_KEY: ${{ secrets.ACCESS_KEY }}   #ACCESS_KEY of ECR Admin User
+  SECRET_KEY: ${{ secrets.SECRET_KEY }}  #SECRET_KEY of ECR Admin
+  PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }} #Private for Login to EC2 for deploy docker Containerssh -i "my-key-pair.pem" -o StrictHostKeyChecking=no ubuntu@16.170.141.130
 
 on:
   push:
@@ -106,6 +107,15 @@ jobs:
 
       - name: Push Image To ECR
         run: docker push 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:$GITHUB_RUN_NUMBER
+
+  Deploy_web_on_EC2:
+    runs-on: self-hosted
+    steps:
+      - name: SSH to the Server
+        run: |
+          ssh -i <(echo "$PRIVATE_KEY") -o StrictHostKeyChecking=no ubuntu@16.171.242.199
+          docker rm -f $(docker ps -aq)
+          docker run 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1::$GITHUB_RUN_NUMBER
 
     
 
