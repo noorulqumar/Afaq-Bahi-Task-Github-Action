@@ -2,7 +2,7 @@ name: workflow
 env:
   ACOUNT_Owner: "noorulqumar80"
   DOCKER_HUB_REPO: "my-image"
-  TAG_OF_IMAGE: $GITHUB_JOB
+  TAG_OF_IMAGE: $GITHUB_RUN_NUMBER
   ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
   SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
