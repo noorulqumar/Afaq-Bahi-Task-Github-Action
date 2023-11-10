@@ -104,7 +104,8 @@ jobs:
       - name: update the tag of docker image
         run: docker tag $ACOUNT_Owner/$DOCKER_HUB_REPO:$GITHUB_RUN_NUMBER 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:$GITHUB_RUN_NUMBER
 
-
+      - name: Push Image To ECR
+        run: docker push 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:$GITHUB_RUN_NUMBER
 
     
 
