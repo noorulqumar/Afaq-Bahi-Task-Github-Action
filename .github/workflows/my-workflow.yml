@@ -139,6 +139,7 @@ jobs:
             then
               if (( $? !=  0 ))
               then
+                echo "installing AWSCLI"
                 sudo apt update
                 sudo apt  install awscli -y
               else
