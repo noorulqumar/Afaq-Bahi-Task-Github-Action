@@ -114,8 +114,8 @@ jobs:
     steps:
       - name: SSH to the Server
         run: |
-          ssh-add - <<<"${PRIVATE_KEY}" 
-          ssh -o StrictHostKeyChecking=no ubuntu@16.171.242.199
+          ssh-add - <<<$PRIVATE_KEY
+          ssh -o StrictHostKeyChecking=no ubuntu@51.20.144.90
           docker rm -f $(docker ps -aq)
           docker run 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1::$GITHUB_RUN_NUMBER
 
