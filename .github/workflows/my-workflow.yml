@@ -55,15 +55,15 @@ jobs:
       - name : print DOCKER token
         run: echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
 
-  Push_image_to_docker_Hub:
-    runs-on: self-hosted
-    needs: [Build-docker-image]
-    steps:
-      - name: login to docker hub
-        run: 'echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u $ACOUNT_Owner --password-stdin'  
+  # Push_image_to_docker_Hub:
+  #   runs-on: self-hosted
+  #   needs: [Build-docker-image]
+  #   steps:
+  #     - name: login to docker hub
+  #       run: 'echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u $ACOUNT_Owner --password-stdin'  
 
-      - name: push image
-        run: docker push $ACOUNT_Owner/$DOCKER_HUB_REPO:$GITHUB_RUN_NUMBER
+  #     - name: push image
+  #       run: docker push $ACOUNT_Owner/$DOCKER_HUB_REPO:$GITHUB_RUN_NUMBER
 
 
   Push_image_to_ECR:
