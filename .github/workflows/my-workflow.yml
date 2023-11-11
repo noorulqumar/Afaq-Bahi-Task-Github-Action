@@ -6,7 +6,7 @@ env:
   ACCESS_KEY: ${{ secrets.ACCESS_KEY }}   #ACCESS_KEY of ECR Admin User
   SECRET_KEY: ${{ secrets.SECRET_KEY }}  #SECRET_KEY of ECR Admin
   PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }} #Private for Login to EC2 for deploy docker Containerssh -i "my-key-pair.pem" -o StrictHostKeyChecking=no ubuntu@16.170.141.130
-
+  GITHUB_RUN_NUMBER: ${{ github.run_number }}
 on:
   push:
     branches:
