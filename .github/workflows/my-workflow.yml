@@ -163,7 +163,7 @@ jobs:
       # - name: Run Docker Container
       #   run: |
       #     docker rm -f $(docker ps -aq)
-      #     docker run 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:$GITHUB_RUN_NUMBER
+      #     docker run 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:78
 
     
 
