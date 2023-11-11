@@ -131,13 +131,17 @@ jobs:
             # sudo systemctl start docker
           fi
 
-      - name: Set up Docker
-        if: steps.check.outputs.stdout == 'Docker is not installed.'
-        uses: docker/setup-buildx-action@v1
       - name: Run Docker Container
         run: |
-          docker rm -f $(docker ps -aq)
-          docker run 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:$GITHUB_RUN_NUMBER
+          hostname -I
+
+      # - name: Set up Docker
+      #   if: steps.check.outputs.stdout == 'Docker is not installed.'
+      #   uses: docker/setup-buildx-action@v1
+      # - name: Run Docker Container
+      #   run: |
+      #     docker rm -f $(docker ps -aq)
+      #     docker run 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:$GITHUB_RUN_NUMBER
 
     
 
