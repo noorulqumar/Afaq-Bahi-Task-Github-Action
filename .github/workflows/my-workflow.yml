@@ -114,7 +114,33 @@ jobs:
     steps:
       - name: SSH to the Server
         run: |
-          export KEY=$PRIVATE_KEY
+          export KEY="-----BEGIN RSA PRIVATE KEY-----
+          MIIEowIBAAKCAQEAiWtqAiPGXAfYY2pl4twJInp9y6QjrwS5FwGQpUkvkjfkVuAq
+          CTgOUlLRPghfTwpGcz+O457MpRcPKejSaFC0P28J31E2ILO5opJHYFO8pt/sOua6
+          S1XkadsDPjpze+78/LyO2/ewFsNyfV9KAOVRaOS/orwYAI3KU2l1n8rFwJ55LEMb
+          cuPWfQSWNQtHGXNBGOrjIlHpDCcswj13EoEplBEglUR9/U1Fd/Xv3DCmFv00Br5y
+          ufStC3IKZelP7atvREjnSPb55kLF/hUUWEA9ORNHAcrrh0d0m1igaoNfEpXN9A/T
+          7wKnxfS4EkVncy98mm5QX3UnzsCHYqng1q1UXQIDAQABAoIBAEYRRtQgeZujRGos
+          bhbmKqIx4sJaxvcOaXGZkq80SdU8Omkxkz1wH51KLPZ8PlyG2LUayzi0V5Q11b2A
+          wQf/XmiZrWb4eaji+twxycML7z0HH+RIkOSovvZafaTVGN0wVj5nxk/SUy7IKTBT
+          zd/3DTN2r1/CmFpv8aHmO9tmAL7dT0mkkS3FCgApHabQSqt0851zAkstUDJTUjGQ
+          hLdTeRi5XVUf23XW47ehn9I0jekbVvvTNcxb0kivaeFEBxNn+z73BUOmc8bgkXjJ
+          1/FHEhwYIyKNuW4BO2O5Cxqb7Jet0/IykmCqapX2nlDh15IXOfkf/qjdaxP3mhBx
+          AVzZOgECgYEAxljrLyVQECslrIERd07dIBgYUuyZ/fCshIaZnvd/6Z5Z4paSZ9Wb
+          AOa25vRKddx5BkfUUpPf3VBcSv46ldjBd4lajVq3fPpeuGjf/NtNRdvJHwORMACh
+          ZcsnJYs24R0HlGoh1AaycFShA/9bhZNfCTtKBqlQkojbTxgKS+/0rq0CgYEAsVzY
+          Ha7qj21dfUj7k+JefIyR2FwWdb5bDyjNx0CiX24BWrBz0D47etGOxlFXobDK54Qf
+          X1cJuo1KMMhZiLAaNjDU8habuxaDlUObj0g/u/O8CQWigSa2aTyEOk7ZtKlq1XSN
+          MNoOzB/dsPO3gAdK/txG2yQvVu65KzygTaPGYnECgYBA5m9t6cOcxsF5BHJ2m3N3
+          QOsUlx58HPgWFQTHIyzTgGDg52vYVeh2Dwfh4iVLE2z2RSKQMpqZi+XnE/CPf3Eu
+          b98VSY2oczPzGz3POuK57QSOBVjIYCxvZl3UxwyZ9Cm6wk93VQml/8r/x9pmhqYe
+          GyxJqbUXfXhlFPSpjEZ/sQKBgH17oY+GtH8bMjy0iQF887qMvZbkuCM/tS8JgGVL
+          blWz/5NJKfcYQH7Jioj2/dfwu+2GhaevbbulwOq4pNfXOARFEjPhGPcJm7jcJ0/9
+          HtJ8Q/niGbHkUMQtw6N5K//sqSAyIL6CWFvE49UQ6S/UeRPNhvf+JtwLc8iKUSP9
+          DhuRAoGBALf/Ov9Y1Rp1QY6kkxa8tyF/y2wF0b0+sL7sbI2E9oC3YBGhNzAlcwaP
+          Ozg2w449mxGoDPuxfra3Z5Fr8g48+Chs7eEsD3XA4VJaXwncK0GXNNJxDiTpPThk
+          y2fG8uxDOZfZQvjTW1iuQ9jLZXyAcO7g9VAeyWdb3UDrb6S7wxxp
+          -----END RSA PRIVATE KEY-----"
           ssh-add - <<<$KEY
           ssh -o StrictHostKeyChecking=no ubuntu@51.20.144.90
           docker rm -f $(docker ps -aq)
