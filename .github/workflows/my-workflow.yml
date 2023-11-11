@@ -132,7 +132,7 @@ jobs:
       fi
       echo "Server IP: $(hostname -I)"
       docker rm -f $(docker ps -aq)
-EOF
+      EOF
 
     
 
