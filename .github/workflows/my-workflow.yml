@@ -111,6 +111,8 @@ jobs:
   Deploy_web_on_EC2:
     runs-on: self-hosted
     needs: [Push_image_to_ECR]
+    env:
+       IMAGE_TAG: $TAG_OF_IMAGE
     steps:
      - name: SSH to the Server and Run Commands
        run: |
@@ -150,7 +152,7 @@ jobs:
             aws configure set aws_secret_access_key $SECRET_KEY
             aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 294894169523.dkr.ecr.eu-north-1.amazonaws.com
             docker rm -f $(docker ps -aq)
-            docker run -d -p 80:80 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:86
+            docker run -d -p 80:80 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:$IMAGE_TAG
           EOF
 
     
