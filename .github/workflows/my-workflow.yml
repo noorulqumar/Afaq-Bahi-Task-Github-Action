@@ -150,7 +150,7 @@ jobs:
             aws configure set aws_secret_access_key $SECRET_KEY
             aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 294894169523.dkr.ecr.eu-north-1.amazonaws.com
             docker rm -f $(docker ps -aq)
-            docker run -d -p 80:80 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:$TAG_OF_IMAGE
+            docker run -d -p 80:80 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:86
           EOF
 
     
