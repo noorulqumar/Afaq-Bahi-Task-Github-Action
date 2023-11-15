@@ -17,5 +17,5 @@ jobs:
       run: |
         chk=$(( $GITHUB_RUN_NUMBER - 1 ))
         echo $chk
-        sed -i "s|test-repo-1:$chk|test-repo-1:$GITHUB_RUN_NUMBER|" script.sh
+        sed -i "s/test-repo-1:$chk/test-repo-1:$GITHUB_RUN_NUMBER/" script.sh
 
