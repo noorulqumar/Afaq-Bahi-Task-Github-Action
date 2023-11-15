@@ -33,4 +33,4 @@ aws configure set aws_access_key_id "$ACCESS_KEY"
 aws configure set aws_secret_access_key "$SECRET_KEY"
 aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 294894169523.dkr.ecr.eu-north-1.amazonaws.com
 docker rm -f "$(docker ps -aq)"
-docker run -d -p 80:80 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:6
+docker run -d -p 80:80 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:8
