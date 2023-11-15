@@ -1,171 +1,165 @@
-name: workflow
-env:
-  ACOUNT_Owner: "noorulqumar80"
-  DOCKER_HUB_REPO: "my-image"
-  TAG_OF_IMAGE: $GITHUB_RUN_NUMBER
-  ACCESS_KEY: ${{ secrets.ACCESS_KEY }}   #ACCESS_KEY of ECR Admin User
-  SECRET_KEY: ${{ secrets.SECRET_KEY }}  #SECRET_KEY of ECR Admin
-  PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }} #Private for Login to EC2 for deploy docker Containerssh -i "my-key-pair.pem" -o StrictHostKeyChecking=no ubuntu@16.170.141.130
-  GITHUB_RUN_NUMBER: ${{ github.run_number }}
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+# name: workflow
+# env:
+#   ACOUNT_Owner: "noorulqumar80"
+#   DOCKER_HUB_REPO: "my-image"
+#   TAG_OF_IMAGE: $GITHUB_RUN_NUMBER
+#   ACCESS_KEY: ${{ secrets.ACCESS_KEY }}   #ACCESS_KEY of ECR Admin User
+#   SECRET_KEY: ${{ secrets.SECRET_KEY }}  #SECRET_KEY of ECR Admin
+#   PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }} #Private for Login to EC2 for deploy docker Containerssh -i "my-key-pair.pem" -o StrictHostKeyChecking=no ubuntu@16.170.141.130
+#   GITHUB_RUN_NUMBER: ${{ github.run_number }}
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:
 
 
-jobs:
-  Checkout:
-    runs-on: self-hosted
-    steps:
+# jobs:
+#   Checkout:
+#     runs-on: self-hosted
+#     steps:
 
-      - name: Checkout the code
-        uses: actions/checkout@v4
-  Check-Setup-docker:
-    runs-on: self-hosted
-    needs: [Checkout]
-    steps:
-      - name: Check if Docker is installed
-        run: |
-          if command -v docker &>/dev/null; then
-            echo "Docker is installed."
-          else
-            echo "Docker is not installed."
-            sudo apt update -y
-            sudo apt  install docker.io -y
-            sudo usermod -aG docker $USER
-            newgrp docker 
-            sleep 10
-            sudo systemctl start docker
-          fi
+#       - name: Checkout the code
+#         uses: actions/checkout@v4
+#   Check-Setup-docker:
+#     runs-on: self-hosted
+#     needs: [Checkout]
+#     steps:
+#       - name: Check if Docker is installed
+#         run: |
+#           if command -v docker &>/dev/null; then
+#             echo "Docker is installed."
+#           else
+#             echo "Docker is not installed."
+#             sudo apt update -y
+#             sudo apt  install docker.io -y
+#             sudo usermod -aG docker $USER
+#             newgrp docker 
+#             sleep 10
+#             sudo systemctl start docker
+#           fi
 
-      - name: Set up Docker
-        if: steps.check.outputs.stdout == 'Docker is not installed.'
-        uses: docker/setup-buildx-action@v1
-  Build-docker-image:
-    runs-on: self-hosted
-    needs: [Check-Setup-docker]
-    steps:
-      - name: Build docker image
-        run: docker build --tag $ACOUNT_Owner/$DOCKER_HUB_REPO:$GITHUB_RUN_NUMBER .
+#       - name: Set up Docker
+#         if: steps.check.outputs.stdout == 'Docker is not installed.'
+#         uses: docker/setup-buildx-action@v1
+#   Build-docker-image:
+#     runs-on: self-hosted
+#     needs: [Check-Setup-docker]
+#     steps:
+#       - name: Build docker image
+#         run: docker build --tag $ACOUNT_Owner/$DOCKER_HUB_REPO:$GITHUB_RUN_NUMBER .
 
-      - name: Show Docker images
-        run: docker images
+#       - name: Show Docker images
+#         run: docker images
 
-      - name : print DOCKER token
-        run: echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+#       - name : print DOCKER token
+#         run: echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
 
-  # Push_image_to_docker_Hub:
-  #   runs-on: self-hosted
-  #   needs: [Build-docker-image]
-  #   steps:
-  #     - name: login to docker hub
-  #       run: 'echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u $ACOUNT_Owner --password-stdin'  
+#   # Push_image_to_docker_Hub:
+#   #   runs-on: self-hosted
+#   #   needs: [Build-docker-image]
+#   #   steps:
+#   #     - name: login to docker hub
+#   #       run: 'echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u $ACOUNT_Owner --password-stdin'  
 
-  #     - name: push image
-  #       run: docker push $ACOUNT_Owner/$DOCKER_HUB_REPO:$GITHUB_RUN_NUMBER
+#   #     - name: push image
+#   #       run: docker push $ACOUNT_Owner/$DOCKER_HUB_REPO:$GITHUB_RUN_NUMBER
 
 
-  Push_image_to_ECR:
-    runs-on: self-hosted
-    needs: [Build-docker-image]
-    steps:
-      - name: check awscli installed or not
-        run: |
-          if command -v awscli &>/dev/null
-          then
-            if (( $? !=  0 ))
-            then
-              sudo apt update
-              sudo apt  install awscli -y
-            else
-              echo "awscli is installed"
-            fi
-          fi
+#   Push_image_to_ECR:
+#     runs-on: self-hosted
+#     needs: [Build-docker-image]
+#     steps:
+#       - name: check awscli installed or not
+#         run: |
+#           if command -v awscli &>/dev/null
+#           then
+#             if (( $? !=  0 ))
+#             then
+#               sudo apt update
+#               sudo apt  install awscli -y
+#             else
+#               echo "awscli is installed"
+#             fi
+#           fi
 
-      - name: delete .aws/credentials if it exist
-        run: |
-          pwd
-          cd ~
-          if [[ -d .aws ]]
-          then
-            sudo rm -rf .aws
-          fi
+#       - name: delete .aws/credentials if it exist
+#         run: |
+#           pwd
+#           cd ~
+#           if [[ -d .aws ]]
+#           then
+#             sudo rm -rf .aws
+#           fi
           
-      - name: configure AWS credentials
-        run: |
-          aws configure set aws_access_key_id $ACCESS_KEY
-          aws configure set aws_secret_access_key $SECRET_KEY
+#       - name: configure AWS credentials
+#         run: |
+#           aws configure set aws_access_key_id $ACCESS_KEY
+#           aws configure set aws_secret_access_key $SECRET_KEY
 
 
 
-      - name: login to ECR
-        run: aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 294894169523.dkr.ecr.eu-north-1.amazonaws.com
+#       - name: login to ECR
+#         run: aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 294894169523.dkr.ecr.eu-north-1.amazonaws.com
 
-      - name: update the tag of docker image
-        run: docker tag $ACOUNT_Owner/$DOCKER_HUB_REPO:$GITHUB_RUN_NUMBER 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:$GITHUB_RUN_NUMBER
+#       - name: update the tag of docker image
+#         run: docker tag $ACOUNT_Owner/$DOCKER_HUB_REPO:$GITHUB_RUN_NUMBER 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:$GITHUB_RUN_NUMBER
 
-      - name: Push Image To ECR
-        run: docker push 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:$GITHUB_RUN_NUMBER
+#       - name: Push Image To ECR
+#         run: docker push 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:$GITHUB_RUN_NUMBER
 
-  Deploy_web_on_EC2:
-    runs-on: self-hosted
-    needs: [Push_image_to_ECR]
-    env:
-       IMAGE_TAG: $TAG_OF_IMAGE
-    steps:
-     - name: SSH to the Server and Run Commands
-       run: |
-          set -x
-          eval $(ssh-agent -s)
-          ssh-add - <<< "$PRIVATE_KEY"
-          ssh -o StrictHostKeyChecking=no ubuntu@51.20.144.90 << 'EOF'
-            echo 'SSH connection successful'
-            if command -v docker &>/dev/null; then
-              echo "Docker is installed."
-            else
-              echo "Docker is not installed."
-              sudo apt update -y
-              sudo apt install docker.io -y
-              sudo usermod -aG docker $USER
-              echo $USER
-              newgrp docker
-              sleep 10
-              sudo systemctl start docker
-            fi
-            echo "Server IP: $(hostname -I)"
-            echo $USER
-            #docker rm -f $(docker ps -aq)
-            docker images
-            if command -v awscli &>/dev/null
-            then
-              if (( $? !=  0 ))
-              then
-                echo "installing AWSCLI"
-                sudo apt update
-                sudo apt  install awscli -y
-              else
-                echo "awscli is installed"
-              fi
-            fi
-            aws configure set aws_access_key_id $ACCESS_KEY
-            aws configure set aws_secret_access_key $SECRET_KEY
-            aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 294894169523.dkr.ecr.eu-north-1.amazonaws.com
-            docker rm -f $(docker ps -aq)
-            docker run -d -p 80:80 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:$IMAGE_TAG
-          EOF
+#   Deploy_web_on_EC2:
+#     runs-on: self-hosted
+#     needs: [Push_image_to_ECR]
+#     env:
+#        IMAGE_TAG: $TAG_OF_IMAGE
+#     steps:
+#      - name: SSH to the Server and Run Commands
+#        run: |
+#           set -x
+#           eval $(ssh-agent -s)
+#           ssh-add - <<< "$PRIVATE_KEY"
+#           ssh -o StrictHostKeyChecking=no ubuntu@51.20.144.90 << 'EOF'
+#             echo 'SSH connection successful'
+#             if command -v docker &>/dev/null; then
+#               echo "Docker is installed."
+#             else
+#               echo "Docker is not installed."
+#               sudo apt update -y
+#               sudo apt install docker.io -y
+#               sudo usermod -aG docker $USER
+#               echo $USER
+#               newgrp docker
+#               sleep 10
+#               sudo systemctl start docker
+#             fi
+#             echo "Server IP: $(hostname -I)"
+#             echo $USER
+#             #docker rm -f $(docker ps -aq)
+#             docker images
+#             if command -v awscli &>/dev/null
+#             then
+#               if (( $? !=  0 ))
+#               then
+#                 echo "installing AWSCLI"
+#                 sudo apt update
+#                 sudo apt  install awscli -y
+#               else
+#                 echo "awscli is installed"
+#               fi
+#             fi
+#             aws configure set aws_access_key_id $ACCESS_KEY
+#             aws configure set aws_secret_access_key $SECRET_KEY
+#             aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 294894169523.dkr.ecr.eu-north-1.amazonaws.com
+#             docker rm -f $(docker ps -aq)
+#             docker run -d -p 80:80 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:$IMAGE_TAG
+#           EOF
 
     
 
           
 
-      # - name: Set up Docker
-      #   if: steps.check.outputs.stdout == 'Docker is not installed.'
-      #   uses: docker/setup-buildx-action@v1
-      # - name: Run Docker Container
-      #   run: |
-      #     docker rm -f $(docker ps -aq)
-      #     docker run 294894169523.dkr.ecr.eu-north-1.amazonaws.com/test-repo-1:78
+    
 
     
 
