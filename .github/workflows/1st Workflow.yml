@@ -15,5 +15,4 @@ jobs:
 
     - name: Run your build or tests
       run: |
-        # Your build/test commands here
-        echo "Running first workflow..."
+        pwd
