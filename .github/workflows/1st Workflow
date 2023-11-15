@@ -1,0 +1,19 @@
+name: First Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Run your build or tests
+      run: |
+        # Your build/test commands here
+        echo "Running first workflow..."
