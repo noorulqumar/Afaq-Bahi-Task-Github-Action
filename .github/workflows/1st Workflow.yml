@@ -14,7 +14,7 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
-    - name: Run your build or tests
+    - name: update script
       run: |
         export G_HUB_ACCESS_TOKEN=${{secrets.G_HUB_ACCESS_TOKEN}}
         chk=$(( $GITHUB_RUN_NUMBER - 1 ))
@@ -25,5 +25,5 @@ jobs:
         git config --global user.name "noorulqumar"
         git add .
         git commit -m "version ${GITHUB_RUN_NUMBER}"
-        https://noorulqumar:${{secrets.G_HUB_ACCESS_TOKEN}}@github.com/noorulqumar/Afaq-Bahi-Task-Github-Action.git
+        https://noorulqumar:$G_HUB_ACCESS_TOKEN@github.com/noorulqumar/Afaq-Bahi-Task-Github-Action.git
 
