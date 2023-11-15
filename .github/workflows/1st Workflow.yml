@@ -14,9 +14,8 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
-    - name: update script
+    - name: Update script
       run: |
-        export G_HUB_ACCESS_TOKEN=${{secrets.G_HUB_ACCESS_TOKEN}}
         chk=$(( $GITHUB_RUN_NUMBER - 1 ))
         echo $chk
         sed -i "s/test-repo-1:$chk/test-repo-1:$GITHUB_RUN_NUMBER/g" script.sh
@@ -24,6 +23,5 @@ jobs:
         git config --global user.email "noorulqumar0@gmail.com"
         git config --global user.name "noorulqumar"
         git add .
-        git commit -m "version ${GITHUB_RUN_NUMBER}"
-        # git push https://github.com/noorulqumar/Afaq-Bahi-Task-Github-Action.git
-        git push https://noorulqumar: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@github.com/noorulqumar/Afaq-Bahi-Task-Github-Action.git
+        git commit -m "Version ${GITHUB_RUN_NUMBER}"
+        git push https://github.com/${{ github.repository }}.git HEAD:main
