@@ -25,6 +25,5 @@ jobs:
         git config --global user.name "noorulqumar"
         git add .
         git commit -m "version ${GITHUB_RUN_NUMBER}"
-        git push https://github.com/noorulqumar/Afaq-Bahi-Task-Github-Action.git
-        #git push https://noorulqumar:$G_HUB_ACCESS_TOKEN@github.com/noorulqumar/Afaq-Bahi-Task-Github-Action.git
-
+        # git push https://github.com/noorulqumar/Afaq-Bahi-Task-Github-Action.git
+        git push https://noorulqumar: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@github.com/noorulqumar/Afaq-Bahi-Task-Github-Action.git
