@@ -16,6 +16,7 @@ jobs:
 
     - name: Run your build or tests
       run: |
+        export G_HUB_ACCESS_TOKEN=${{secrets.G_HUB_ACCESS_TOKEN}}
         chk=$(( $GITHUB_RUN_NUMBER - 1 ))
         echo $chk
         sed -i "s/test-repo-1:$chk/test-repo-1:$GITHUB_RUN_NUMBER/g" script.sh
@@ -24,5 +25,5 @@ jobs:
         git config --global user.name "noorulqumar"
         git add .
         git commit -m "version ${GITHUB_RUN_NUMBER}"
-        https://noorulqumar:${{secrets.G_HUB_ACCESS_TOKEN}}github.com/noorulqumar/Afaq-Bahi-Task-Github-Action.git
+        https://noorulqumar:${{secrets.G_HUB_ACCESS_TOKEN}}@github.com/noorulqumar/Afaq-Bahi-Task-Github-Action.git
 
