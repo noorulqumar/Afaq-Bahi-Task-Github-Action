@@ -13,10 +13,10 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - name: Check out repository
+    - name: ${{ github.event.head_commit.message }}
       uses: actions/checkout@v3
 
-    - name: Update script
+    - name: ${{ github.event.head_commit.message }}
       run: |
         echo $USER
         chk=$(( $GITHUB_RUN_NUMBER - 1 ))
