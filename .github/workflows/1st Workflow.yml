@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: ${{ github.event.head_commit.message }}
+    - name: (${{ github.event.repository.html_url }}/commit/${{ github.event.head_commit.id }})
       uses: actions/checkout@v3
 
     - name: ${{ github.event.head_commit.message }}
