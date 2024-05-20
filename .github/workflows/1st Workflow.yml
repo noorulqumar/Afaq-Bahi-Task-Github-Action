@@ -19,6 +19,7 @@ jobs:
     - name: ${{ github.event.head_commit.message }}
       run: |
         echo $USER
+        echo (${{ github.event.repository.html_url }}/commit/${{ github.event.head_commit.id }})
         chk=$(( $GITHUB_RUN_NUMBER - 1 ))
         echo $chk
         sed -i "s/test-repo-1:$chk/test-repo-1:$GITHUB_RUN_NUMBER/g" script.sh
