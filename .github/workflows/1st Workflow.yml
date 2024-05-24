@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - name: (${{ github.event.repository.html_url }}/commit/${{ github.event.head_commit.id }})
